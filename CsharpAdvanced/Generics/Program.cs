@@ -24,7 +24,12 @@ void ShowQuantity<T>(T drink) where T : Drink {
     Console.WriteLine(drink.Quantity);
 }
 
-void ShowInfo<T>(T element) where T : IInfo { 
+void ShowInfo<T>(T element) where T : IInfo {
+    Console.WriteLine(element.GetInfo());
+}
+
+void ShowInfoAndQuantity<T>(T element) where T : Drink, IInfo {
+    Console.WriteLine(element.Quantity);
     Console.WriteLine(element.GetInfo());
 }
 
@@ -32,7 +37,17 @@ var drink = new Drink(550);
 var beer = new Beer("Erdinger", 500);
 ShowQuantity(drink);
 ShowQuantity(beer);
-ShowInfo(beer);
+//ShowInfo(beer);
+ShowInfoAndQuantity(beer);
+
+var pool = new ObjectPool<Randoms>(3);
+
+while (pool.Count > 0) {
+    var number = pool.Get();
+    Console.WriteLine(number.Number);
+}
+
+
 
 Operation<int> add = (a, b) => a + b;
 //Console.WriteLine(add(1,2));
