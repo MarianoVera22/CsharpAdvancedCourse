@@ -37,7 +37,7 @@ var drink = new Drink(550);
 var beer = new Beer("Erdinger", 500);
 ShowQuantity(drink);
 ShowQuantity(beer);
-//ShowInfo(beer);
+ShowInfo(beer);
 ShowInfoAndQuantity(beer);
 
 var pool = new ObjectPool<Randoms>(3);
@@ -47,6 +47,18 @@ while (pool.Count > 0) {
     Console.WriteLine(number.Number);
 }
 
+
+//Covarianza
+IEnumerable<Drink> list= new List<Beer>();
+
+IDrinkCreator<Drink> drinkCreator = new IPABeerCreator();
+var drink2 = drinkCreator.Create(500);
+Console.WriteLine(drink2.Quantity);
+
+//Contravarianza
+IShow<Beer> beerShow = new DrinkShow();
+var deliriumBeer = new Beer("Delirium Christmas", 1200);
+beerShow.Show(deliriumBeer);
 
 
 Operation<int> add = (a, b) => a + b;
