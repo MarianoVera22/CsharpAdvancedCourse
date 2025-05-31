@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generics", "Generics\Generi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionsMethods", "ExtensionsMethods\ExtensionsMethods.csproj", "{7F945E4B-5AB9-4D76-9AB5-56EB451DFBEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reference", "Reference\Reference.csproj", "{823FEA04-048B-43A3-9DDC-C0661ABE062C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7F945E4B-5AB9-4D76-9AB5-56EB451DFBEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F945E4B-5AB9-4D76-9AB5-56EB451DFBEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F945E4B-5AB9-4D76-9AB5-56EB451DFBEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{823FEA04-048B-43A3-9DDC-C0661ABE062C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{823FEA04-048B-43A3-9DDC-C0661ABE062C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{823FEA04-048B-43A3-9DDC-C0661ABE062C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{823FEA04-048B-43A3-9DDC-C0661ABE062C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
