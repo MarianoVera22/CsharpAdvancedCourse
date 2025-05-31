@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionsMethods", "Extens
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reference", "Reference\Reference.csproj", "{823FEA04-048B-43A3-9DDC-C0661ABE062C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inmutability", "Inmutability\Inmutability.csproj", "{906DD303-113E-4DD7-A75C-9171C0966498}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{823FEA04-048B-43A3-9DDC-C0661ABE062C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{823FEA04-048B-43A3-9DDC-C0661ABE062C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{823FEA04-048B-43A3-9DDC-C0661ABE062C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{906DD303-113E-4DD7-A75C-9171C0966498}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{906DD303-113E-4DD7-A75C-9171C0966498}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{906DD303-113E-4DD7-A75C-9171C0966498}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{906DD303-113E-4DD7-A75C-9171C0966498}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
