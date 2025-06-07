@@ -116,6 +116,42 @@ var amount = calculateWithTax(discount);
 var amountWithoutTax = calculateWithBasePrice(0)(discount);
 var amountWithoutTaxAndDiscount = calculateWithBasePrice(0)(0);
 
-Console.WriteLine($"El total es: {amount}");
-Console.WriteLine($"El total sin impuestos es: {amountWithoutTax}");
-Console.WriteLine($"El total sin impuestos ni descuento es: {amountWithoutTaxAndDiscount}");
+//Console.WriteLine($"El total es: {amount}");
+//Console.WriteLine($"El total sin impuestos es: {amountWithoutTax}");
+//Console.WriteLine($"El total sin impuestos ni descuento es: {amountWithoutTaxAndDiscount}");
+
+// Memoization
+
+var pow = Memoization.Pow(2);
+//Console.WriteLine(pow(2));
+//Console.WriteLine(pow(2)); // ya existe
+//Console.WriteLine(pow(2)); // ya existe
+//Console.WriteLine(pow(3));
+//Console.WriteLine(pow(3)); // ya existe
+
+var requestAsync = Memoization.GetUrl("https://jsonplaceholder.typicode.com/posts");
+//Console.WriteLine(await requestAsync(1));
+//Console.WriteLine(await requestAsync(1));// ya existe
+//Console.WriteLine(await requestAsync(1));// ya existe
+//Console.WriteLine(await requestAsync(2));
+//Console.WriteLine(await requestAsync(2));// ya existe
+
+var mulx5 = (double x) => x * 5;
+var mem = Memoization.Mem(mulx5); //<double, double> es una redundacia por que el programa ya lo sabe
+
+//Console.WriteLine(mem(2));
+//Console.WriteLine(mem(2));
+
+var getUrl = async (string url) =>
+{
+    using (var client = new HttpClient())
+    {
+        var response = await client.GetAsync(url);
+        var responseBody = await response.Content.ReadAsStringAsync();
+        return responseBody;
+    }
+};
+
+var memAsync =  Memoization.MemAsync(getUrl);
+Console.WriteLine(await memAsync("https://jsonplaceholder.typicode.com/posts/1"));
+Console.WriteLine(await memAsync("https://jsonplaceholder.typicode.com/posts/1"));
