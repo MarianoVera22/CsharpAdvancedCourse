@@ -29,5 +29,9 @@ namespace AdvancedFunctionalPreogramming
 
             return result;
         }
+
+        public static TResult P<TInput, TResult>(this TInput input, Func<TInput, TResult> func) {
+            return func(input);
+        }
     }
 }

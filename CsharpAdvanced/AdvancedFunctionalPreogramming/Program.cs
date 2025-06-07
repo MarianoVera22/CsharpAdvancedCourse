@@ -79,9 +79,43 @@ var cleanText2 = Functions.Pipe(text, removeSpace, firstCapitalLetter, removeNum
 var numbersxPipe = Functions.Pipe(numbers,
     lst => lst.Map(e => e * 2),
     lst => lst.Map(e => e - 1)
+    //lst => lst.Reduce((ac, item) => ac + item,0) No se puede por que retorna solo un entero
     );
 
+var numberxPipe = numbers.P(lst => lst.Map(e => e * 2))
+    .P(lst => lst.Map(e => e - 1))
+    .P(lst => lst.Reduce((ac, item) => ac + item, 0)); //Funciones con distinto cuerpo
 
-Console.WriteLine(cleanText);
-Console.WriteLine(cleanText2);
-numbersxPipe.ForEach(Console.WriteLine);
+//Console.WriteLine(cleanText);
+//Console.WriteLine(cleanText2);
+//numbersxPipe.ForEach(Console.WriteLine);
+//Console.WriteLine(numberxPipe);
+
+
+// Currying
+
+Func<string, Func<string, string>> Concat() {
+    return a => b => a +" "+ b;
+}
+
+var concat = Concat();
+var concatWithHi = concat("Hola");
+//Console.WriteLine(concatWithHi("Hector"));
+//Console.WriteLine(concatWithHi("Mariano"));
+
+Func<decimal, Func<decimal, Func<decimal, decimal>>> calculateTotal =
+    basePrice => tax => discount => (basePrice + (basePrice * tax) - discount);
+
+var basePrice = 100;
+var tax = 0.1m;
+var discount = 20;
+
+var calculateWithBasePrice = calculateTotal(basePrice);
+var calculateWithTax = calculateWithBasePrice(tax);
+var amount = calculateWithTax(discount);
+var amountWithoutTax = calculateWithBasePrice(0)(discount);
+var amountWithoutTaxAndDiscount = calculateWithBasePrice(0)(0);
+
+Console.WriteLine($"El total es: {amount}");
+Console.WriteLine($"El total sin impuestos es: {amountWithoutTax}");
+Console.WriteLine($"El total sin impuestos ni descuento es: {amountWithoutTaxAndDiscount}");
