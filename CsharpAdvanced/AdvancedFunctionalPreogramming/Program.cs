@@ -204,7 +204,7 @@ MaybeMonad<int> Add(int num1, int num2)
 }
 
 var numberMM = MaybeMonad<int>.Some(80)
-    .Bind(x => Div(x, 0)) // No da error, lo maneja internamente 
+    .Bind(x => Div(x, 0)) // No da error, lo maneja internamente
     .Bind(x => Add(x, 2));
 
 Console.WriteLine(numberMM);
@@ -224,7 +224,7 @@ MaybeMonad<Beer> Search(int id)
     if (id == 1)
     {
         return MaybeMonad<Beer>.Some(
-            new Beer() 
+            new Beer()
             {
                 Id= 1,
                 Name = "Erdinger",

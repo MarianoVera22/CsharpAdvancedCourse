@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Records", "Records\Records.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvancedFunctionalPreogramming", "AdvancedFunctionalPreogramming\AdvancedFunctionalPreogramming.csproj", "{61E8E3D1-0F83-4F14-88F6-3F5DACA0D928}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Concurrent", "Concurrent\Concurrent.csproj", "{26ECDE1B-FADF-469A-9220-C8BE12E71BA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{61E8E3D1-0F83-4F14-88F6-3F5DACA0D928}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61E8E3D1-0F83-4F14-88F6-3F5DACA0D928}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61E8E3D1-0F83-4F14-88F6-3F5DACA0D928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26ECDE1B-FADF-469A-9220-C8BE12E71BA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26ECDE1B-FADF-469A-9220-C8BE12E71BA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26ECDE1B-FADF-469A-9220-C8BE12E71BA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26ECDE1B-FADF-469A-9220-C8BE12E71BA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
