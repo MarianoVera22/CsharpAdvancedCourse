@@ -153,5 +153,31 @@ var getUrl = async (string url) =>
 };
 
 var memAsync =  Memoization.MemAsync(getUrl);
-Console.WriteLine(await memAsync("https://jsonplaceholder.typicode.com/posts/1"));
-Console.WriteLine(await memAsync("https://jsonplaceholder.typicode.com/posts/1"));
+//Console.WriteLine(await memAsync("https://jsonplaceholder.typicode.com/posts/1"));
+//Console.WriteLine(await memAsync("https://jsonplaceholder.typicode.com/posts/1"));
+
+// Functor
+
+var identitiy = new Identity<int>(55);
+var newIdentity = identitiy.Map<string>(x=> "Es un numero envuelto: "+x.ToString());
+Console.WriteLine(newIdentity.GetValue());
+
+var beerPrice = new Identity<double>(100);
+var beerTax = 0.1;
+var beerDiscount = 15;
+
+var totalBeerPrice = beerPrice
+    .Map(x => x + (x * beerTax))
+    .Map(x => x - beerDiscount)
+    .Map(x => "El resultado es: " + x.ToString());
+
+Console.WriteLine(totalBeerPrice.GetValue());
+Console.WriteLine(beerPrice.GetValue());
+
+var numberMFString = MaybeFunctore<int>
+    .Some(8)
+    .Map(x => x * 2)
+    //.Map(x => x / 0) // Ocasiona error y no lo considera, el Monad si
+    .Map(x => $"El maybe Number es {x}");
+
+Console.WriteLine(numberMFString.GetValue());
