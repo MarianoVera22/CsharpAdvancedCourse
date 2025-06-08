@@ -160,7 +160,7 @@ var memAsync =  Memoization.MemAsync(getUrl);
 
 var identitiy = new Identity<int>(55);
 var newIdentity = identitiy.Map<string>(x=> "Es un numero envuelto: "+x.ToString());
-Console.WriteLine(newIdentity.GetValue());
+//Console.WriteLine(newIdentity.GetValue());
 
 var beerPrice = new Identity<double>(100);
 var beerTax = 0.1;
@@ -171,8 +171,8 @@ var totalBeerPrice = beerPrice
     .Map(x => x - beerDiscount)
     .Map(x => "El resultado es: " + x.ToString());
 
-Console.WriteLine(totalBeerPrice.GetValue());
-Console.WriteLine(beerPrice.GetValue());
+//Console.WriteLine(totalBeerPrice.GetValue());
+//Console.WriteLine(beerPrice.GetValue());
 
 var numberMFString = MaybeFunctore<int>
     .Some(8)
@@ -180,4 +180,73 @@ var numberMFString = MaybeFunctore<int>
     //.Map(x => x / 0) // Ocasiona error y no lo considera, el Monad si
     .Map(x => $"El maybe Number es {x}");
 
-Console.WriteLine(numberMFString.GetValue());
+//Console.WriteLine(numberMFString.GetValue());
+
+
+// Monad
+
+MaybeMonad<int> Div(int num, int div)
+{
+    if (div == 0)
+    {
+        return MaybeMonad<int>.None();
+    }
+    return MaybeMonad<int>.Some(num/div);
+}
+
+MaybeMonad<int> Add(int num1, int num2)
+{
+    if (num1 < 0 || num2 <0)
+    {
+        return MaybeMonad<int>.None();
+    }
+    return MaybeMonad<int>.Some(num1 + num2);
+}
+
+var numberMM = MaybeMonad<int>.Some(80)
+    .Bind(x => Div(x, 0)) // No da error, lo maneja internamente 
+    .Bind(x => Add(x, 2));
+
+Console.WriteLine(numberMM);
+
+var myBeer = Search(1)
+    .Bind(x => ValidateName(x.Name));
+
+Console.WriteLine(myBeer);
+
+var myBeer2 = Search(10)
+    .Bind(x => ValidateName(x.Name)); // No falla, detecta el error
+
+Console.WriteLine(myBeer2);
+
+MaybeMonad<Beer> Search(int id)
+{
+    if (id == 1)
+    {
+        return MaybeMonad<Beer>.Some(
+            new Beer() 
+            {
+                Id= 1,
+                Name = "Erdinger",
+                Alcohol = 8
+            }
+        );
+    }
+    return MaybeMonad<Beer>.None();
+}
+
+MaybeMonad<string> ValidateName(string name)
+{
+    if (string.IsNullOrEmpty(name))
+    {
+        return MaybeMonad<string>.None();
+    }
+    return MaybeMonad<string>.Some(name);
+}
+
+class Beer
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public decimal Alcohol { get; set; }
+}
