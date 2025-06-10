@@ -35,63 +35,149 @@ using Concurrent;
 
 // TResult
 
-var taskResult = Methods.AddAsync(3, 5);
+//var taskResult = Methods.AddAsync(3, 5);
 
 //Console.WriteLine("Mientras voy a comer");
-var result = await taskResult;
+//var result = await taskResult;
 
 //Console.WriteLine("Voy a banarme");
 //Console.WriteLine(result);
 
 // ContinueTask
 
-var tasks = Task.Run(() =>
-{
-    //Console.WriteLine("--------------Inicia mi tarea secuencial--------------");
+//var tasks = Task.Run(() =>
+//{
+//Console.WriteLine("--------------Inicia mi tarea secuencial--------------");
 
-    var resultTask = Methods.AddAsync(5, 10);
+//var resultTask = Methods.AddAsync(5, 10);
 
-    //Console.WriteLine("--------------Finaliza mi tarea secuencial--------------");
+//Console.WriteLine("--------------Finaliza mi tarea secuencial--------------");
 
-    return resultTask.Result;
+//    return resultTask.Result;
 
-}).ContinueWith((resultTask) =>
-{
-    //Console.WriteLine("--------------Inicia mi segunda tarea secuencial--------------");
+//}).ContinueWith((resultTask) =>
+//{
+//Console.WriteLine("--------------Inicia mi segunda tarea secuencial--------------");
 
-    var result = resultTask.Result;
-    Console.WriteLine($"El resultado es {result}");
+//var result = resultTask.Result;
+//Console.WriteLine($"El resultado es {result}");
 
-    Task.Delay(2000).Wait();
+//Task.Delay(2000).Wait();
 
-    //Console.WriteLine("--------------Finaliza mi segunda tarea secuencial--------------");
-});
+//Console.WriteLine("--------------Finaliza mi segunda tarea secuencial--------------");
+//});
 
-await tasks;
+//await tasks;
 
 //Console.WriteLine("--------------Fin de las tareas secuenciales--------------");
 
 
 // WhenAll
 
-List<Task> waitTasks = new List<Task>()
+//List<Task> waitTasks = new List<Task>()
+//{
+//    Methods.Wait(1000),
+//    Methods.Wait(3000)
+//};
+
+//await Task.WhenAll(waitTasks);
+
+//Console.WriteLine("Terminaron las tareas de espera");
+
+//List<Task<double>> addTasks = new List<Task<double>>() {
+//    Methods.AddAsync(10,10), Methods.AddAsync(20,20),Methods.AddAsync(30,30)
+//};
+
+//double[] results = await Task.WhenAll(addTasks);
+
+//foreach (var res in results) {
+//    Console.WriteLine("Resultado:" + res);
+//}
+
+//Console.WriteLine("Terminaron las tareas de suma");
+
+
+// Thread (Mejor para procesos paralelos)
+
+//Thread thread = new Thread(() => {
+//    Console.WriteLine("Inicia ejecucion de hilo");
+
+//    Thread.Sleep(5000);
+
+//    Console.WriteLine("Fin ejecucion de hilo");
+//});
+
+//Console.WriteLine("Inicio de programa...");
+
+//thread.Start();
+
+//Console.WriteLine("El programa principal hace otra cosa...");
+
+//thread.Join();
+
+//Console.WriteLine("Fin de programa");
+
+
+// Parallel.For
+
+//int numberOfFiles = 100;
+
+//Parallel.For(0, numberOfFiles, i =>
+//{
+//    string fileName = $"archivo_{i}.txt";
+//    string content = $"archivo numero {i}.";
+
+//    File.WriteAllText(fileName, content);
+
+//    Console.WriteLine($"Archivo '{fileName}' creado por el hilo: {Task.CurrentId}");
+//});
+
+// Parallel.ForEach
+
+//List<int> ids = new List<int>()
+//{
+//    15,7,543,87,23,654,765,45,31,12
+//};
+
+//Parallel.ForEach(ids, id =>
+//{
+//    string fileName = $"Archivo_{id}.txt";
+//    string content = $"Archivo numero {id}";
+
+//    File.WriteAllText(fileName , content );
+
+//    Console.WriteLine($"Archivo '{fileName}' creado por el hilo: {Task.CurrentId}");
+//}
+//);
+
+//Console.WriteLine("Se ha terminado de hacer todos los procesos");
+
+// Parallel.ForEachAsync
+
+List<int> episodes = new List<int>()
 {
-    Methods.Wait(1000),
-    Methods.Wait(3000)
+    1,5,6,2,10,22,54,33,22,15
 };
 
-await Task.WhenAll(waitTasks);
+var URL = "https://rickandmortyapi.com/api/episode/";
+var httpClient = new HttpClient();
 
-Console.WriteLine("Terminaron las tareas de espera");
+await Parallel.ForEachAsync(episodes, async(episode, cancellationToken) => {
+    try
+    {
+        int threadId = Thread.CurrentThread.ManagedThreadId;
 
-List<Task<double>> addTasks = new List<Task<double>>() {
-    Methods.AddAsync(10,10), Methods.AddAsync(20,20),Methods.AddAsync(30,30)
-};
+        HttpResponseMessage response = await httpClient.GetAsync(URL+episode);
+        string responseBody = await response.Content.ReadAsStringAsync();
 
-double[] results = await Task.WhenAll(addTasks);
+        string fileName = $"Episode{episode}.txt";
+        await File.WriteAllTextAsync(fileName, responseBody);
 
-foreach (var res in results) {
-    Console.WriteLine("Resultado:" + res);
-}
+        Console.WriteLine($"Archivo '{fileName}' creado por el hilo: {Task.CurrentId}");
+    }
+    catch (Exception ex) {
+        Console.WriteLine($"Error al solicitar {URL}: {ex.Message}");
+    }
+});
 
-Console.WriteLine("Terminaron las tareas de suma");
+Console.WriteLine("Se ha terminado de hacer todos los procesos");
